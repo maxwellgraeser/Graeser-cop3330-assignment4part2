@@ -1,0 +1,39 @@
+@startuml
+class App {
++main()
++starter()
+}
+
+class Controller {
+-ObservableList<Item> overList
++addList()
++removeList()
++editListTitle()
++addItem()
++removeItem()
++displayList()
++displayIncomplete()
++displayComplete()
++exportList()
++exportAll()
++importList()
++importAll()
++cSetDate()
++cSetTitle()
++cSetCompleted()
+}
+
+class Item {
+-String date
+-String title
+-boolean completed
++getTitle(): String
++getDate(): String
++setTitle()
++setDate()
++setCompleted()
+}
+
+App --> Controller
+Item <--> Controller
+@enduml
