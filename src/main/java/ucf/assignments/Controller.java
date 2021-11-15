@@ -7,13 +7,18 @@ package ucf.assignments;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -21,17 +26,13 @@ public class Controller implements Initializable {
     final FileChooser fileChooser = new FileChooser();
 
     @FXML
-    private TableView tableView;
+    private DatePicker dateSelect;
 
+    @FXML
+    private TableView listDisplay;
 
-
-
-
-
-
-
-
-    public void addItem() {
+    @FXML
+    public void addButton(ActionEvent actionEvent) {
         // generates new variable with item
         // if given a title and date call setDate and setTitle
     }
@@ -58,18 +59,11 @@ public class Controller implements Initializable {
         // exports a list to external storage using fileChooser
     }
 
-    public void exportAll() {
-        // exports all lists to external storage
-        // for (all lists) exportList();
-    }
 
     public void importList() {
         // imports a list from external storage
     }
 
-    public void importAll() {
-        // imports multiple lists from external storage using fileChooser
-    }
 
     // Item control
     // notation cSetBlank refers to controller set blank, as the Item class has setDate classes
@@ -87,6 +81,17 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Table setup
+        listDisplay.setEditable(true);
+        TableColumn colDescription = new TableColumn("Item Description");
+        TableColumn colDate = new TableColumn("Item Date");
+        TableColumn colComplete = new TableColumn("Item Complete");
+        listDisplay.getColumns().addAll(colDescription, colDate, colComplete);
 
+        colDescription.setCellValueFactory( new PropertyValueFactory<Item, String>("title"));
+        colDescription.setCellFactory(TextFieldTableCell.forTableColumn());
+        colDate.setCellValueFactory( new PropertyValueFactory<Item,String>("date"));
+        colDate.setCellFactory(TextFieldTableCell.forTableColumn());
+        colComplete.setCellFactory( new PropertyValueFactory<Item,String>("selectComplete"));
     }
 }

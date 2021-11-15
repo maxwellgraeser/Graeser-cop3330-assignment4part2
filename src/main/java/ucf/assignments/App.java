@@ -22,9 +22,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
             Parent root = FXMLLoader.load(getClass().getResource("/App.fxml"));
-
             Scene scene = new Scene(root);
-
             primaryStage.setScene(scene);
             primaryStage.setTitle("Todo List");
             primaryStage.show();
