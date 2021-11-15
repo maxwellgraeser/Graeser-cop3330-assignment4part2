@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.43724899598393574" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane dividerPositions="0.43724899598393574" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.Controller">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
          <children>
@@ -17,7 +17,7 @@
             <Button fx:id="importButton" layoutX="510.0" layoutY="15.0" mnemonicParsing="false" text="Import" />
             <Button fx:id="exportButton" layoutX="511.0" layoutY="57.0" mnemonicParsing="false" text="export" />
             <Label layoutX="14.0" layoutY="61.0" text="Item Control" />
-            <Button fx:id="addButton" layoutX="117.0" layoutY="57.0" mnemonicParsing="false" text="Add Item" />
+            <Button fx:id="addButton" layoutX="117.0" layoutY="57.0" mnemonicParsing="false" onAction="#addItem" text="Add Item" />
             <Button fx:id="deleteButton" layoutX="196.0" layoutY="56.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="80.0" text="Delete Item" />
             <Button fx:id="editButton" layoutX="286.0" layoutY="56.0" mnemonicParsing="false" text="Edit Item" />
             <Label layoutX="16.0" layoutY="96.0" text="List View" />

@@ -8,12 +8,10 @@ package ucf.assignments;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
@@ -24,17 +22,62 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
     private final ObservableList<Item> overList = FXCollections.observableArrayList();
     final FileChooser fileChooser = new FileChooser();
+    @FXML
+    private Button allButton;
+
+    @FXML
+    private Button clearButton;
+
+    @FXML
+    private Button completeButton;
 
     @FXML
     private DatePicker dateSelect;
 
     @FXML
-    private TableView listDisplay;
+    private Button deleteButton;
 
     @FXML
-    public void addButton(ActionEvent actionEvent) {
+    private TextField descriptionBox;
+
+    @FXML
+    private Button editButton;
+
+    @FXML
+    private Button exportButton;
+
+    @FXML
+    private Button importButton;
+
+    @FXML
+    private Button incompleteButton;
+
+    @FXML
+    private TableView<Item> listDisplay = new TableView<Item>();
+
+    @FXML
+    public void addItem(ActionEvent actionEvent) {
         // generates new variable with item
         // if given a title and date call setDate and setTitle
+
+        // Creation
+        String descHolder = descriptionBox.getText();
+        if (descHolder.equals("")) return;
+        if (dateSelect.getValue().equals(null)) return;
+        String dateHolder = String.valueOf(dateSelect.getValue());
+        Item temp = new Item();
+        temp.setTitle(descHolder);
+        temp.setDate(dateHolder);
+
+        // Adding to list
+        listDisplay.setEditable(true);
+        //listDisplay.getItems().add(temp);
+        overList.add(temp);
+
+        // Reset inputs
+        descriptionBox.clear();
+        dateSelect.setValue(null);
+        dateSelect.getEditor().clear();
     }
 
     public void removeItem() {
@@ -83,15 +126,15 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // Table setup
         listDisplay.setEditable(true);
-        TableColumn colDescription = new TableColumn("Item Description");
-        TableColumn colDate = new TableColumn("Item Date");
-        TableColumn colComplete = new TableColumn("Item Complete");
+        TableColumn colDescription = new TableColumn("Description");
+        TableColumn colDate = new TableColumn("Date");
+        TableColumn colComplete = new TableColumn("Completed");
         listDisplay.getColumns().addAll(colDescription, colDate, colComplete);
 
         colDescription.setCellValueFactory( new PropertyValueFactory<Item, String>("title"));
-        colDescription.setCellFactory(TextFieldTableCell.forTableColumn());
         colDate.setCellValueFactory( new PropertyValueFactory<Item,String>("date"));
-        colDate.setCellFactory(TextFieldTableCell.forTableColumn());
-        colComplete.setCellFactory( new PropertyValueFactory<Item,String>("selectComplete"));
+        colComplete.setCellFactory( new PropertyValueFactory<Item, String>("completed"));
+
+        listDisplay.setItems(overList);
     }
 }
