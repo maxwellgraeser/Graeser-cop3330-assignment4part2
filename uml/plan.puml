@@ -6,9 +6,6 @@ class App {
 
 class Controller {
 -ObservableList<Item> overList
-+addList()
-+removeList()
-+editListTitle()
 +addItem()
 +removeItem()
 +displayList()

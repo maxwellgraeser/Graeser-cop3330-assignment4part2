@@ -7,7 +7,9 @@ package ucf.assignments;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 
 import java.net.URL;
@@ -18,18 +20,16 @@ public class Controller implements Initializable {
     private final ObservableList<Item> overList = FXCollections.observableArrayList();
     final FileChooser fileChooser = new FileChooser();
 
-    public void addList(String listName) {
-        // Creates a new list
-        // display new list in gui
-    }
+    @FXML
+    private TableView tableView;
 
-    public void removeList() {
-        // Removes the list selected in gui
-    }
 
-    public void editListTitle(String newTitle) {
-        // Amends the title of the list with newTitle
-    }
+
+
+
+
+
+
 
     public void addItem() {
         // generates new variable with item
