@@ -7,15 +7,13 @@ package ucf.assignments;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
 
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,47 +21,22 @@ public class Controller implements Initializable {
     private final ObservableList<Item> overList = FXCollections.observableArrayList();
     final FileChooser fileChooser = new FileChooser();
     @FXML
-    private Button allButton;
-
-    @FXML
-    private Button clearButton;
-
-    @FXML
-    private Button completeButton;
-
-    @FXML
     private DatePicker dateSelect;
-
-    @FXML
-    private Button deleteButton;
-
     @FXML
     private TextField descriptionBox;
-
-    @FXML
-    private Button editButton;
-
-    @FXML
-    private Button exportButton;
-
-    @FXML
-    private Button importButton;
-
-    @FXML
-    private Button incompleteButton;
-
     @FXML
     private TableView<Item> listDisplay = new TableView<Item>();
 
-    @FXML
-    public void addItem(ActionEvent actionEvent) {
+    public void addItem() {
         // generates new variable with item
-        // if given a title and date call setDate and setTitle
+        // only if given a title and date
+        // call setDate and setTitle
+        // reset inputs
 
         // Creation
-        String descHolder = descriptionBox.getText();
-        if (descHolder.equals("")) return;
+        if (descriptionBox.getText().equals("")) return;
         if (dateSelect.getValue().equals(null)) return;
+        String descHolder = descriptionBox.getText();
         String dateHolder = String.valueOf(dateSelect.getValue());
         Item temp = new Item();
         temp.setTitle(descHolder);
@@ -71,7 +44,7 @@ public class Controller implements Initializable {
 
         // Adding to list
         listDisplay.setEditable(true);
-        //listDisplay.getItems().add(temp);
+        listDisplay.getItems().add(temp);
         overList.add(temp);
 
         // Reset inputs
@@ -82,45 +55,74 @@ public class Controller implements Initializable {
 
     public void removeItem() {
         // Removes the selected item from the list it is in
+        ObservableList<Item> selected, temp;
+        selected = listDisplay.getSelectionModel().getSelectedItems();
+        temp = listDisplay.getItems();
+        selected.forEach(temp::remove);
     }
 
-    public void displayList() {
-        // displays the list in the gui, makes no filtration of items
+    public void clearList() {
+        ObservableList<Item> temp;
+        temp = listDisplay.getItems();
+        temp.removeAll();
+    }
+
+    public void displayAll() {
+        // Displays all items in gui
+        listDisplay.setEditable(true);
+        listDisplay.setItems(overList);
     }
 
     public void displayIncomplete() {
         // displays list in gui
         // if item complete do not show
+        listDisplay.setEditable(true);
     }
 
     public void displayComplete() {
         // displays list in gui
         // if item incomplete do not show
+        listDisplay.setEditable(true);
     }
 
     public void exportList() {
         // exports a list to external storage using fileChooser
+        File file = fileChooser.showOpenDialog(null);
+        if (file == null) return;
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for (int i = 0; i < overList.size(); i++) {
+                Item temp = overList.get(i);
+                writer.write(temp.toString());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {}
     }
 
 
     public void importList() {
         // imports a list from external storage
+        File file = fileChooser.showOpenDialog(null);
+        if (file == null) return;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            overList.removeAll();
+
+            while (true) {
+                try {
+                    String temp = reader.readLine();
+                    Item item = new Item();
+                    item.setDate(temp);
+                    item.setTitle(temp);
+                    overList.add(item);
+                } catch (EOFException e) {
+                    break;
+                }
+            }
+        } catch (IOException e) {}
     }
 
-
-    // Item control
-    // notation cSetBlank refers to controller set blank, as the Item class has setDate classes
-    public void cSetDate() {
-        // sets the date of an item by calling the method in Item called setDate
-    }
-
-    public void cSetTitle() {
-        // sets the title of an item by calling the method in Item called setTitle
-    }
-
-    public void cSetCompleted() {
-        // sets the completion of an item by calling the method in Item called setComplete
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -133,7 +135,7 @@ public class Controller implements Initializable {
 
         colDescription.setCellValueFactory( new PropertyValueFactory<Item, String>("title"));
         colDate.setCellValueFactory( new PropertyValueFactory<Item,String>("date"));
-        colComplete.setCellFactory( new PropertyValueFactory<Item, String>("completed"));
+        colComplete.setCellFactory( new PropertyValueFactory<Item, Boolean>("completed"));
 
         listDisplay.setItems(overList);
     }

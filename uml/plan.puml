@@ -8,16 +8,13 @@ class Controller {
 -ObservableList<Item> overList
 +addItem()
 +removeItem()
-+displayList()
++clearList()
++displayAll()
 +displayIncomplete()
 +displayComplete()
 +exportList()
-+exportAll()
 +importList()
-+importAll()
-+cSetDate()
-+cSetTitle()
-+cSetCompleted()
++initialize()
 }
 
 class Item {

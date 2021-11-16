@@ -8,13 +8,13 @@ package ucf.assignments;
 public class Item {
     private String date;
     private String title;
-    private String completed;
+    private Boolean completed;
 
     // Generate new item
     public Item() {
         this.date = "No Date";
         this.title = "No Title";
-        this.completed = "No";
+        this.completed = false;
     }
 
 
@@ -23,7 +23,7 @@ public class Item {
 
     public String getDate() { return date; }
 
-    public String getComplete() { return completed; }
+    public Boolean getComplete() { return completed; }
 
 
     // Setters
@@ -35,7 +35,8 @@ public class Item {
         this.title = title;
     }
 
-    public void setCompleted(String completed) {
-        this.completed = completed;
+    public void setCompleted() {
+        if (this.completed) this.completed = false;
+        else this.completed = true;
     }
 }

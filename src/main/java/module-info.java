@@ -1,6 +1,6 @@
 module ucf.assigments {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
     opens ucf.assignments;
-    exports ucf.assignments;
 }

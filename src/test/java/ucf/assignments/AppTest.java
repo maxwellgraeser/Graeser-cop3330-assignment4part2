@@ -15,6 +15,7 @@ public class AppTest {
     void controllerTest() {
         // note: overList refers to the overarching list of lists
         Controller tester = new Controller();
+
         // addList() assert list name in overList is the same
         // removeList assert name in overList no longer exists
         // editLstTitle() assert new name is in overList

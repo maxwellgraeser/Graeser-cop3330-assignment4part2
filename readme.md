@@ -5,6 +5,7 @@ How to use:\
 -Add new item by typing in a description and date then click add item\
 -Delete item by clicking on an item in the list and click the delete item button\
 -Edit item by double-clicking on the items description or date, type changes, then press enter\
+-To mark an item complete or incomplete, double-click on the completed column for the item to swap its value\
 -Display: use the buttons Incomplete, Completed, and All to display items of that type\
 -Use the Export button to export the list to external storage\
 -Use the Import button to load in a list from external storage\
